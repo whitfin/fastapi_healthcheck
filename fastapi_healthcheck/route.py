@@ -11,14 +11,16 @@ def healthCheckRoute(factory: HealthCheckFactory) -> Callable:
     When called, the endpoint method within, will be called and it will run the job bound to the factory.
     The results will be parsed and sent back to the requestor via JSON.
     """
-    
+
     _factory = factory
 
     def endpoint() -> JSONResponse:
-        res = _factory.check()    
-        if res['status'] == HealthCheckStatusEnum.UNHEALTHY.value:
-            return JSONResponse(content=res, status_code=500)
-        return JSONResponse(content=res, status_code=200)
+        """
+        Check health of API and associated services.
+        """
+        res = _factory.check()
+        code = 500 if res["status"] == HealthCheckStatusEnum.UNHEALTHY.value else 200
+        return JSONResponse(content=res, status_code=code)
 
     return endpoint
 

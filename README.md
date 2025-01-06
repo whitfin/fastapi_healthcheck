@@ -15,6 +15,7 @@ Here is what you need to get started.
 ```python
 from fastapi import FastAPI
 from fastapi_healthcheck import HealthCheckFactory, healthCheckRoute
+from fastapi_healthcheck.model import HealthCheckModel
 from fastapi_healthcheck_sqlalchemy import HealthCheckSQLAlchemy
 
 app = FastAPI()
@@ -28,7 +29,7 @@ _healthChecks.add(HealthCheckSQLAlchemy(alias='postgres db', connectionUri=cs.va
 # This will check external URI and validate the response that is returned.
 # fastapi-healthcheck-uri
 _healthChecks.add(HealthCheckUri(alias='reddit', connectionUri="https://www.reddit.com/r/aww.json", tags=('external', 'reddit', 'aww')))
-app.add_api_route('/health', endpoint=healthCheckRoute(factory=_healthChecks))
+app.add_api_route('/health', endpoint=healthCheckRoute(factory=_healthChecks), response_model=HealthCheckModel)
 
 ```
 
