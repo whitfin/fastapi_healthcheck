@@ -52,9 +52,9 @@ class HealthCheckFactory:
         for i in self._healthItems:
             # Generate the model
             if not hasattr(i, "_tags"):
-                i._tags = list()
+                i._tags = None
             item = HealthCheckEntityModel(
-                alias=i._alias, tags=i._tags if i._tags else []
+                alias=i._alias, tags=i._tags
             )
 
             # Track how long the entity took to respond

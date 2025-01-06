@@ -9,7 +9,7 @@ class HealthCheckEntityModel(BaseModel):
     alias: str
     status: Union[HealthCheckStatusEnum, str] = HealthCheckStatusEnum.HEALTHY
     timeTaken: Union[Optional[datetime], str] = ""
-    tags: List[str] = list()
+    tags: Optional[List[str]] = list()
 
 
 class HealthCheckModel(BaseModel):
